@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  width: 100%;
+}
