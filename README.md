@@ -23,7 +23,7 @@ The game has a reset button and when the game resets another set of 8 images wil
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![](./assets/flamingo.png)
 
 ## My process
 
@@ -36,16 +36,39 @@ The game has a reset button and when the game resets another set of 8 images wil
 
 ### What I learned
 
-```html
-
-```
-
-```css
-
-```
+Hopefully, I can remember this way of fetching API's going forward.
 
 ```jsx
+const fetchPokemons = () => {
+  setIsLoading(true);
 
+  fetch("https://pokeapi.co/api/v2/pokemon?limit=8")
+    .then((res) => res.json())
+    .then((data) => {
+      //Extract pokemon names and images
+      const pokemonPromise = data.results.map((pokemon) =>
+        fetch(pokemon.url)
+          .then((res) => res.json())
+          .then((details) => ({
+            name: pokemon.name,
+            image: details.sprites.front_default,
+          }))
+      );
+      return pokemonPromise.reduce((chain, promise) => {
+        return chain.then((results) =>
+          promise.then((result) => [...results, result])
+        );
+      }, Promise.resolve([]));
+    })
+    .then((pokemonDetails) => {
+      setPokemons(pokemonDetails);
+      setIsLoading(false);
+    })
+    .catch((error) => {
+      console.error("Error fetching Pokémon data:", error);
+      setIsLoading(false);
+    });
+};
 ```
 
 ## Resources
