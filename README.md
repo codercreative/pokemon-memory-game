@@ -34,7 +34,13 @@ The game has a reset button and when the game resets another set of 8 images wil
 
 ### Challenges along the way
 
-### What I learned
+### What I learned and bugs to be worked on
+
+- Need to make sure that the game begins on the start page
+- Need to make sure that when a new game starts a new set of pokemons is pulled from the API
+- Work on the title and overall layout to make it look more professional
+- Add a description of the game for the user
+- Perhaps add a timer so that confetti rains down if user solves the game within a set time
 
 Hopefully, I can remember this way of fetching API's going forward.
 
