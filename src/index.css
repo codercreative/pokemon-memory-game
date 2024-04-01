@@ -16,8 +16,11 @@ canvas {
 }
 
 h1 {
-  font-size: 1.8rem;
-  margin-bottom: 1.1em;
+  font-size: 2.5rem;
+}
+
+.instructions {
+  margin: 0.5em 0 1.1em 0;
 }
 
 .game-container {
@@ -25,8 +28,9 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
   font-family: "Roboto Slab", serif;
+  width: 90%;
+  margin: 3em auto;
 }
 
 .cards-grid {
@@ -41,12 +45,6 @@ h1 {
   border: 1px solid #000;
   cursor: pointer;
 }
-
-/* .card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-} */
 
 .card.selected {
   background-color: #ffc107;
@@ -77,11 +75,21 @@ h1 {
 
 @media screen and (max-width: 768px) {
   h1 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+  }
+
+  .instructions {
+    font-size: 0.8;
+    text-align: center;
   }
 
   .card {
-    width: 5em;
-    height: 5em;
+    width: 4.2em;
+    height: 4.2em;
+  }
+
+  .reset-btn {
+    padding: 0.4em 1em;
+    margin-top: 1.2em;
   }
 }

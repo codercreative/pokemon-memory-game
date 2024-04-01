@@ -1,80 +1,73 @@
-# Pokemon Memory Game
+# Memory Game: Pokémon Edition
 
-## Table of contents
+### About
 
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [Challenges along the way](#challenges-along-the-way)
-  - [What I learned](#what-i-learned)
-- [Resources](#resources)
+This is a fun and interactive memory game built using React Vite and the Pokémon API.
 
-## Overview
+### How to play
 
-### The challenge
+#### Gameplay:
 
-A fun memory game built with React Vite and Pokemon API.
-
-The app will hold 8 images x 2 and the user has to flip two cards at time to find the two images that are the same.
-
-The game has a reset button and when the game resets another set of 8 images will load.
+- The app pulls 8 random pairs of Pokémon images from the PokéAPI (currently from 24 cards in total).
+- The player clicks on any two cards to reveal their Pokémon images.
+- If the images match the two cards disappear
+- If the images don't match, they flip back over after a short delay.
+- Continue flipping pairs until all cards are matched and removed from the board
+- When all cards are gone, a congratulatory message appears
+- The player can reset the game at any time to play again.
 
 ### Screenshot
 
-![](./assets/flamingo.png)
+![](./public/assets/screenshot.png)
 
 ## My process
 
+I have always loved to play the memory game. Here's a simple version built from scratch.
+
+Things to consider:
+
+- Build my next project based on a figma file
+- The back of the cards display a pink flamingo that I have illustrated. The flamingo art and the Pokémons don't match in style. Later on, I can perhaps create an API based on my own art 😅
+
 ### Built with
 
-- HTML, CSS, React Vite
-- Pokemon API
-
-### Challenges along the way
+- HTML, CSS, React Vite and Pokemon API
 
 ### What I learned and bugs to be worked on
 
-- Need to make sure that the game begins on the start page
-- Need to make sure that when a new game starts a new set of pokemons is pulled from the API
-- Work on the title and overall layout to make it look more professional
-- Add a description of the game for the user
-- Perhaps add a timer so that confetti rains down if user solves the game within a set time
+- Ensured that the game begins on the start page using the following code:
 
-Hopefully, I can remember this way of fetching API's going forward.
+```js
+useEffect(() => {
+  resetGame();
+}, []);
+```
 
-```jsx
-const fetchPokemons = () => {
-  setIsLoading(true);
+- Ensured that when a new game starts a new set of pokemons is pulled from the API. I set the limit pulled to 24.
 
-  fetch("https://pokeapi.co/api/v2/pokemon?limit=8")
-    .then((res) => res.json())
-    .then((data) => {
-      //Extract pokemon names and images
-      const pokemonPromise = data.results.map((pokemon) =>
-        fetch(pokemon.url)
-          .then((res) => res.json())
-          .then((details) => ({
-            name: pokemon.name,
-            image: details.sprites.front_default,
-          }))
-      );
-      return pokemonPromise.reduce((chain, promise) => {
-        return chain.then((results) =>
-          promise.then((result) => [...results, result])
-        );
-      }, Promise.resolve([]));
-    })
-    .then((pokemonDetails) => {
-      setPokemons(pokemonDetails);
-      setIsLoading(false);
-    })
-    .catch((error) => {
-      console.error("Error fetching Pokémon data:", error);
-      setIsLoading(false);
-    });
-};
+```js
+fetch("https://pokeapi.co/api/v2/pokemon?limit=24");
+```
+
+- Added instructions to the player, remembering to include fragment tags within the ternary operator.
+
+```js
+ return (
+    <section className="game-container">
+      {gameOver ? (
+        <h1>Yay! Way to go!✨</h1>
+      ) : (
+        <>
+          <h1>Memory Game</h1>
+          <p className="instructions">
+            Click on cards to reveal Pokémon images, match pairs to win
+          </p>
+        </>
+      )}
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        //Render the Pokemon cards if data is loaded
 ```
 
 ## Resources

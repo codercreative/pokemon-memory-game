@@ -21,7 +21,7 @@ export default function Card() {
     setIsLoading(true); //SET LOADING STATE TO TRUE
 
     //Fetch Pokémon data from the API
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=8")
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=24")
       .then((res) => res.json()) //PARSE THE RESPONSE AS JSON
       .then((data) => {
         //Extract pokemonNames from the API response
@@ -60,6 +60,10 @@ export default function Card() {
     setGameOver(false);
     fetchPokemons();
   };
+
+  useEffect(() => {
+    resetGame();
+  }, []);
 
   //USE EFFECT HOOK TO FETCH POKEMON DATA WHEN THE COMPONENT MOUNTS
   useEffect(() => {
@@ -115,7 +119,16 @@ export default function Card() {
   //RETURN JSX FOR THE CARD COMPONENT
   return (
     <section className="game-container">
-      {gameOver ? <h1>Yay! Way to go!✨</h1> : <h1>Memory Game</h1>}
+      {gameOver ? (
+        <h1>Yay! Way to go!✨</h1>
+      ) : (
+        <>
+          <h1>Memory Game</h1>
+          <p className="instructions">
+            Click on cards to reveal Pokémon images, match pairs to win
+          </p>
+        </>
+      )}
       {isLoading ? (
         <p>Loading...</p>
       ) : (
